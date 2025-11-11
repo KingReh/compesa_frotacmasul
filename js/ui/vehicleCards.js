@@ -31,7 +31,7 @@ export function renderVehicleCards(table, maintenanceState) {
     contentDiv.appendChild(card);
   });
   
-  renderMaterialsCard();
+  // REMOVIDO: renderMaterialsCard()
 }
 
 export function updateVehicleCard(plate, maintenanceState) {
