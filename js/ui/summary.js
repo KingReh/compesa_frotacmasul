@@ -1,5 +1,5 @@
 import { desiredPlates, placasCPRSUL, fuelPrices } from '../config.js';
-import { parseSaldo, formatCurrency } from '../utils.js';
+import { parseSaldo, formatCurrency, getConsolidatedPlateBalances } from '../utils.js';
 
 function calculateOperationData(maintenanceState) {
   const cmaSulCount = desiredPlates.length - placasCPRSUL.length;
@@ -94,15 +94,19 @@ async function renderFuelPricesCard() {
 }
 
 export async function renderSummary(table, maintenanceState) {
-  let totalGeral = 0, totalCPRSUL = 0;
-  table.querySelectorAll('tr.LinhaImpar, tr.LinhaPar').forEach(row => {
-    const plate = row.cells[1]?.textContent.trim();
-    if (desiredPlates.includes(plate)) {
-      const saldo = parseSaldo(row.cells[13]?.textContent.trim().replace('R$', '') || '0,00');
+  
+  const consolidatedData = getConsolidatedPlateBalances(table);
+  
+  let totalGeral = 0;
+  let totalCPRSUL = 0;
+  
+  Object.entries(consolidatedData).forEach(([plate, saldo]) => {
       totalGeral += saldo;
-      if (placasCPRSUL.includes(plate)) totalCPRSUL += saldo;
-    }
+      if (placasCPRSUL.includes(plate)) {
+          totalCPRSUL += saldo;
+      }
   });
+
   const totalCMASUL = totalGeral - totalCPRSUL;
 
   const summaryContainer = document.getElementById('summaryContainer');

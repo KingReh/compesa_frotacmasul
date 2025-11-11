@@ -1,5 +1,7 @@
 // Funções de UI e utilitários
 
+import { desiredPlates } from './config.js';
+
 export function showNotification(message) {
   const notification = document.createElement('div');
   notification.className = 'notification show';
@@ -101,4 +103,44 @@ export function calculateDaysAbsent(entryDate) {
     const diffTime = today - entry;
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
     return diffDays >= 0 ? diffDays : 0;
+}
+
+/**
+ * Processes the raw HTML table data to consolidate vehicle balances.
+ * If a plate appears multiple times, it prioritizes the non-zero balance.
+ * If multiple non-zero balances exist, it returns the maximum one.
+ * If all balances are zero, it returns 0.
+ * @param {HTMLTableElement} table The raw table element from the imported file.
+ * @returns {Object<string, number>} A map of { plate: numeric_balance }.
+ */
+export function getConsolidatedPlateBalances(table) {
+    const plateBalances = {};
+    table.querySelectorAll('tr.LinhaImpar, tr.LinhaPar').forEach(row => {
+        const plate = row.cells[1]?.textContent.trim();
+        const balanceRaw = row.cells[13]?.textContent.trim().replace('R$', '') || '0,00';
+        
+        if (desiredPlates.includes(plate)) {
+            if (!plateBalances[plate]) {
+                plateBalances[plate] = [];
+            }
+            // Store the numeric value for easy comparison
+            plateBalances[plate].push(parseSaldo(balanceRaw));
+        }
+    });
+
+    const consolidatedData = {};
+    Object.keys(plateBalances).forEach(plate => {
+        const balances = plateBalances[plate];
+        
+        // Find the maximum non-zero balance, or 0 if none exists.
+        const nonZeroBalances = balances.filter(b => b !== 0);
+        
+        if (nonZeroBalances.length > 0) {
+            consolidatedData[plate] = Math.max(...nonZeroBalances);
+        } else {
+            consolidatedData[plate] = 0;
+        }
+    });
+    
+    return consolidatedData;
 }

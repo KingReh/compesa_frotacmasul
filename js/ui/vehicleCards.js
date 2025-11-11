@@ -1,20 +1,18 @@
 import { desiredPlates } from '../config.js';
-import { parseSaldo, formatCurrency, copyToClipboard, showNotification } from '../utils.js';
+import { parseSaldo, formatCurrency, copyToClipboard, showNotification, getConsolidatedPlateBalances } from '../utils.js';
 
 export function renderVehicleCards(table, maintenanceState) {
   const contentDiv = document.getElementById('content');
   contentDiv.innerHTML = '';
-  const plateData = {};
-  table.querySelectorAll('tr.LinhaImpar, tr.LinhaPar').forEach(row => {
-    const plate = row.cells[1]?.textContent.trim();
-    if (desiredPlates.includes(plate)) {
-      plateData[plate] = row.cells[13]?.textContent.trim().replace('R$', '') || '0,00';
-    }
-  });
+  
+  // Use a nova função utilitária para obter dados consolidados
+  const consolidatedPlateData = getConsolidatedPlateBalances(table);
 
   desiredPlates.forEach(plate => {
-    const balanceRaw = plateData[plate] || '0,00';
-    const balanceValue = parseSaldo(balanceRaw);
+    // Se a placa não foi encontrada no arquivo, seu saldo é 0
+    const balanceValue = consolidatedPlateData[plate] !== undefined ? consolidatedPlateData[plate] : 0;
+    const balanceFormatted = formatCurrency(balanceValue);
+    
     const isInMaintenance = maintenanceState[plate] || false;
     const card = document.createElement('div');
     card.className = `modern-card ${isInMaintenance ? 'maintenance' : ''} loaded cursor-pointer`;
@@ -24,7 +22,7 @@ export function renderVehicleCards(table, maintenanceState) {
         <img src="/img/car_img/${plate.toLowerCase()}.png" alt="Veículo ${plate}" class="loaded" onerror="this.parentElement.innerHTML='<div class=\\'no-image loaded\\'>Imagem não disponível</div>';"/>
       </div>
       <p class="text-xl font-semibold text-gray-800">${plate}</p>
-      <p class="text-3xl font-bold ${balanceValue === 0 ? 'zero-balance' : 'text-green-600'} loaded">R$ ${formatCurrency(balanceValue)}</p>
+      <p class="text-3xl font-bold ${balanceValue === 0 ? 'zero-balance' : 'text-green-600'} loaded">R$ ${balanceFormatted}</p>
       ${isInMaintenance ? '<div class="maintenance-badge loaded">Em Manutenção</div>' : ''}
     `;
     card.addEventListener('click', async () => {
@@ -32,6 +30,8 @@ export function renderVehicleCards(table, maintenanceState) {
     });
     contentDiv.appendChild(card);
   });
+  
+  renderMaterialsCard();
 }
 
 export function updateVehicleCard(plate, maintenanceState) {
