@@ -9,7 +9,7 @@ export const supabase = createClient(
 // Dados Iniciais
 export const desiredPlates = [
   'RZO3G50', 'RZO2H73', 'QYY0G07', 'SJG1G06', 'SJE0D78',
-  'PCA5320', 'KII8770', 'SOD6G88', 'PEW3772', 'MAQ0005',
+  'PCA5320', 'KII8770', 'UHJ2C14', 'PEW3772', 'MAQ0005',
   'MAQ0003'
 ];
 
@@ -23,7 +23,7 @@ export const vehicles = [
   { plate: 'QYY0G07', locadora: 'Locadora de Veículos Caxangá' },
   { plate: 'RZO2H73', locadora: 'Locavel' },
   { plate: 'RZO3G50', locadora: 'Locavel' },
-  { plate: 'SOD6G88', locadora: 'PBF' },
+  { plate: 'UHJ2C14', locadora: 'PBF' },
   { plate: 'KII8770', locadora: 'COMPESA' },
   { plate: 'PCA5320', locadora: 'COMPESA' },
   { plate: 'PEW3772', locadora: 'COMPESA' },
