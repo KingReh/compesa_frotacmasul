@@ -1,0 +1,28 @@
+{
+  "name": "extrato_simplificado_compesa",
+  "version": "1.0.0",
+  "description": "Sistema de leitura e exibição de extratos simplificados conectado ao Supabase",
+  "scripts": {
+    "clean": "rimraf public",
+    "copy:root_assets": "copyfiles index.html manifest.json sw.js public",
+    "copy:js": "cp -r js/. public/js",
+    "copy:img": "cp -r img/. public/img",
+    "copy:guias": "cp -r guias/. public/guias",
+    "build:css": "tailwindcss -i ./css/input.css -o ./public/css/styles.css --minify",
+    "build": "pnpm run clean && mkdir -p public/css public/js public/img public/guias && pnpm run copy:root_assets && pnpm run copy:js && pnpm run copy:img && pnpm run copy:guias && pnpm run build:css",
+    "watch:css": "tailwindcss -i ./css/input.css -o ./css/styles.css --watch",
+    "dev:server": "live-server --port=5173 --open=index.html --watch=.",
+    "dev": "concurrently \"pnpm run watch:css\" \"pnpm run dev:server\"",
+    "start": "pnpm run dev"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.17",
+    "concurrently": "^8.2.2",
+    "copyfiles": "^2.4.1",
+    "live-server": "^1.2.2",
+    "postcss": "^8.4.33",
+    "rimraf": "^5.0.7",
+    "tailwindcss": "^3.4.1"
+  },
+  "dependencies": {}
+}
