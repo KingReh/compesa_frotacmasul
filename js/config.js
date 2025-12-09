@@ -1,5 +1,6 @@
 // Configuração do Supabase
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.43.4/dist/module/index.js";
+// Importação removida, Supabase é carregado globalmente via CDN no index.html
+const { createClient } = window.supabase;
 
 export const supabase = createClient(
   'https://wnuialureqofvgefdfol.supabase.co',
