@@ -1112,14 +1112,6 @@ body.loaded {
   transform: scale(1);
 }
 
-#dropZone p {
-  font-family: 'Poppins', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #204499;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
-
 /* Ocultar logotipo e título durante drag */
 
 #mainContent.drag-over .logo-compesa,
@@ -1599,7 +1591,9 @@ input:checked + .slider:before {
   width: 100%;
   max-width: 100%;
   opacity: 0;
+  /* Initial state for animation */
   transform: translateY(10px);
+  /* Initial state for animation */
   transition: opacity 0.5s ease-in-out 0.1s, transform 0.5s ease-in-out 0.1s;
 }
 
@@ -1622,6 +1616,7 @@ input:checked + .slider:before {
   transition: all 0.2s ease-in-out;
   text-align: center;
   display: flex;
+  /* Ensure flex for icon+text */
   align-items: center;
   justify-content: center;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -1641,6 +1636,8 @@ input:checked + .slider:before {
 .custom-btn svg {
   stroke: #4B5563;
   transition: stroke 0.2s ease-in-out;
+  margin-right: 0.5rem;
+  /* Default margin for icon+text */
 }
 
 .custom-btn:hover svg {
@@ -1651,6 +1648,8 @@ input:checked + .slider:before {
   color: #374151;
   transition: color 0.2s ease-in-out;
   white-space: nowrap;
+  display: inline;
+  /* Default display for text */
 }
 
 .custom-btn:hover .btn-text {
@@ -2161,13 +2160,63 @@ input:checked + .slider:before {
 
   /* Footer adjustments */
 
-  footer {
-    right: 50%;
-    transform: translateX(50%);
-    /* Center the footer button */
-    bottom: 1rem;
-    left: auto;
-    /* Remove left-4 */
+  .manual-button-footer {
+    display: none;
+    /* Hide manual button footer on mobile */
+  }
+
+  /* Mobile-specific button styling */
+
+  .button-container {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.75rem;
+    padding: 0;
+    background: none;
+    border: none;
+    box-shadow: none;
+    width: auto;
+    max-width: none;
+    z-index: 100;
+    /* Ensure buttons are above content */
+  }
+
+  .button-container .custom-btn {
+    width: 48px;
+    /* Fixed width for circular button */
+    height: 48px;
+    /* Fixed height for circular button */
+    padding: 0;
+    border-radius: 50%;
+    /* Make buttons circular */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Add shadow for visibility */
+  }
+
+  .button-container .custom-btn .btn-text {
+    display: none;
+    /* Hide text on mobile */
+  }
+
+  .button-container .custom-btn svg {
+    margin-right: 0;
+    /* Remove margin for centered icon */
+  }
+
+  /* Specific adjustment for file input label to ensure it's also circular */
+
+  .button-container label.custom-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    padding: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 }
 
