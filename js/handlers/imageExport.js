@@ -9,10 +9,45 @@ function formatDateTime() {
 async function captureCanvas() {
     const content = document.getElementById('mainContent');
     const buttonContainer = document.querySelector('.button-container');
+
+    // Armazenar estilos originais para restaurar depois
+    const originalBodyOverflow = document.body.style.overflow;
+    const originalContentWidth = content.style.width;
+    const originalContentMaxWidth = content.style.maxWidth;
+    const originalContentMargin = content.style.margin;
+    const originalContentPosition = content.style.position;
+    const originalContentLeft = content.style.left;
+    const originalContentTransform = content.style.transform;
+
+    // Temporariamente ocultar botões e rolar para o topo para uma captura limpa
     buttonContainer.style.display = 'none';
     window.scrollTo(0, 0);
-    const canvas = await html2canvas(content, { scale: 2, useCORS: true });
-    buttonContainer.style.display = '';
+
+    // --- Forçar dimensões de desktop para a captura ---
+    document.body.style.overflow = 'hidden'; // Evita barras de rolagem indesejadas
+    content.style.width = '1280px'; // Força a largura de desktop
+    content.style.maxWidth = '1280px'; // Garante que não seja restringido por max-width menores
+    content.style.margin = '0 auto'; // Centraliza o conteúdo
+    content.style.position = 'relative'; // Reseta qualquer posicionamento mobile
+    content.style.left = 'auto';
+    content.style.transform = 'none'; // Reseta quaisquer transformações
+
+    const canvas = await html2canvas(content, {
+        scale: 2, // Mantém a escala para uma resolução mais alta
+        useCORS: true,
+        windowHeight: content.scrollHeight // Captura a altura total do conteúdo
+    });
+
+    // --- Restaurar estilos originais após a captura ---
+    document.body.style.overflow = originalBodyOverflow;
+    content.style.width = originalContentWidth;
+    content.style.maxWidth = originalContentMaxWidth;
+    content.style.margin = originalContentMargin;
+    content.style.position = originalContentPosition;
+    content.style.left = originalContentLeft;
+    content.style.transform = originalContentTransform;
+    buttonContainer.style.display = ''; // Exibe os botões novamente
+
     return canvas;
 }
 
