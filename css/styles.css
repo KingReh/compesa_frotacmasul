@@ -1034,6 +1034,10 @@ body {
   background: #204499;
   opacity: 0;
   transition: opacity 0.1s ease-in-out;
+  padding: 2rem;
+  /* Default padding for larger screens */
+  gap: 1.5rem;
+  /* Default gap for larger screens */
 }
 
 body.loaded {
@@ -1998,30 +2002,50 @@ input:checked + .slider:before {
 /* Ajustes para telas menores que 640px */
 
 @media (max-width: 640px) {
+  body {
+    padding: 1rem;
+    /* Reduced body padding for smaller screens */
+    gap: 1rem;
+    /* Reduced gap between body elements */
+  }
+
   .button-container {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     width: 100%;
-    max-width: 40rem;
+    max-width: 100%;
+    /* Ensure it doesn't overflow on small screens */
     padding: 0.75rem;
     gap: 0.5rem;
   }
 
   .custom-btn {
     padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    /* Slightly smaller font for buttons */
   }
 
   #mainContent {
     flex: none;
     width: 100%;
+    padding: 1rem;
+    /* Ensure main content padding is appropriate */
   }
 
   /* Título principal */
 
   h1.title-main {
     font-size: 1.5rem;
+    margin-bottom: 1rem;
+    /* Adjust margin for title */
+  }
+
+  #lastUpdated {
+    margin-top: -0.5rem;
+    /* Adjust margin for last updated text */
+    margin-bottom: 1rem;
   }
 
   /* Zona de drop */
@@ -2030,38 +2054,120 @@ input:checked + .slider:before {
     font-size: 1.25rem;
   }
 
+  /* Cartões */
+
+  .modern-card {
+    padding: 1rem;
+    /* Adjust card padding */
+    padding-bottom: 1.5rem;
+  }
+
+  .modern-card img {
+    height: 6rem;
+    /* Slightly smaller image height */
+  }
+
+  .modern-card p {
+    font-size: 0.9rem;
+    /* Smaller general text in cards */
+  }
+
+  .modern-card .text-3xl {
+    font-size: 1.25rem;
+    /* Smaller balance text */
+    margin-bottom: 0.5rem;
+  }
+
+  /* Indicador de manutenção */
+
+  .maintenance-badge {
+    font-size: 0.75rem;
+    /* Smaller badge text */
+    padding: 3px 6px;
+    min-width: 70px;
+    height: 18px;
+  }
+
   /* Modal: menor padding em telas pequenas */
 
   .modal-content {
     padding: 1rem;
-    max-width: 90%;
+    max-width: 95%;
+    /* Allow modals to take more width on very small screens */
   }
 
   /* Ajuste para o modal de anotações de manutenção em telas pequenas */
 
   #maintenanceNotesModal .modal-content {
     flex-direction: column;
-    max-width: 90%;
+    max-width: 95%;
     padding: 1rem;
+    gap: 1rem;
+    /* Adjust gap between form and history */
   }
 
   #maintenanceNotesModal .modal-content .flex-1:last-child {
-    max-height: 40vh;
-    /* Reduz a altura do histórico em telas pequenas */
+    max-height: 30vh;
+    /* Further reduce the height of the history section on small screens */
+    padding: 0.75rem;
   }
 
   #maintenanceNotesModal .modal-content .flex-1:last-child ul li {
     flex-direction: column;
     align-items: flex-start;
+    font-size: 0.8rem;
+    /* Smaller font for list items */
   }
 
   #maintenanceNotesModal .modal-content .flex-1:last-child ul li .action-buttons {
     margin-top: 0.5rem;
   }
 
+  #emailReportModal .modal-content {
+    max-width: 95%;
+  }
+
   .action-btn {
-    font-size: 0.7rem;
-    padding: 0.2rem 0.4rem;
+    font-size: 0.65rem;
+    padding: 0.15rem 0.3rem;
+  }
+
+  /* Summary Card specific adjustments */
+
+  #summaryContainer .modern-card .text-lg {
+    font-size: 0.8rem;
+  }
+
+  #summaryContainer .modern-card .text-xl {
+    font-size: 0.9rem;
+  }
+
+  #summaryContainer .modern-card .text-2xl {
+    font-size: 1.1rem;
+  }
+
+  /* PWA Banner adjustments */
+
+  #pwaInstallBanner {
+    left: 50%;
+    transform: translateX(-50%);
+    /* Center the banner */
+    width: calc(100% - 2rem);
+    /* Full width minus body padding */
+    max-width: 95%;
+    right: auto;
+    /* Remove right-4 */
+  }
+
+  /* Footer adjustments */
+
+  footer {
+    right: 50%;
+    transform: translateX(50%);
+    /* Center the footer button */
+    bottom: 1rem;
+    left: auto;
+    /* Remove left-4 */
   }
 }
 
