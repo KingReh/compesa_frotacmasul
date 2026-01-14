@@ -58,6 +58,31 @@ function loadSavedData() {
   }
 }
 
+// --- SCROLL TO TOP BUTTON LOGIC ---
+function setupScrollToTopButton() {
+  const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+  if (!scrollToTopBtn) return;
+
+  const toggleVisibility = () => {
+    if (window.scrollY > 200) { // Show button after scrolling 200px
+      scrollToTopBtn.classList.add('show');
+    } else {
+      scrollToTopBtn.classList.remove('show');
+    }
+  };
+
+  window.addEventListener('scroll', toggleVisibility);
+  scrollToTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+
+  // Initial check in case the page loads already scrolled
+  toggleVisibility();
+}
+
 // --- INITIALIZATION ---
 async function initializeApp() {
   const initialState = await loadStateFromSupabase();
@@ -72,6 +97,7 @@ async function initializeApp() {
   initializeMaintenanceNotes();
   initPwa(); // Initialize PWA functionality
   loadSavedData(); // Load data from localStorage on startup
+  setupScrollToTopButton(); // Setup scroll to top button
 
   // Event Listeners
   document.getElementById('maintenanceBtn').addEventListener('click', () => {
