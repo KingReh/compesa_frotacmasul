@@ -950,10 +950,15 @@ input:checked + .slider:before {
     /* Ensure main content padding is appropriate */
   }
 
-  /* Título principal */
+  /* Logo Compesa */
+  .logo-compesa {
+    max-width: 120px; /* Tamanho menor para o logo */
+    width: 100%;
+  }
 
+  /* Título principal */
   h1.title-main {
-    font-size: 1.5rem;
+    font-size: 1.5rem; /* Tamanho menor para o título principal */
     margin-bottom: 1rem;
     /* Adjust margin for title */
   }
@@ -962,6 +967,7 @@ input:checked + .slider:before {
     margin-top: -0.5rem;
     /* Adjust margin for last updated text */
     margin-bottom: 1rem;
+    font-size: 0.75rem; /* Tamanho menor para o texto de atualização */
   }
 
   /* Zona de drop */
