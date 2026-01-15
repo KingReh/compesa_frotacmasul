@@ -121,7 +121,7 @@ export function renderEmailReportModal(data) {
     <strong>Assunto:</strong> Manutenção do Veículo ${data.vehicleSelect} Km ${data.currentKm} - CMA SUL/GPM<br><br>
     ${getGreeting()}<br><br>
     Gostaria de informar que o veículo de placa <strong>${data.vehicleSelect}</strong>, com <strong>${data.currentKm}</strong> km rodados, necessita de alguns ajustes importantes. Abaixo, listo os problemas identificados:<br><br>
-    ${data.issues.replace(/\n/g, '<br>')}<br><br>
+    <strong>${data.issues.replace(/\n/g, '<br>')}</strong><br><br>
     <strong>Gerência:</strong> GERÊNCIA DE PRODUÇÃO METROPOLITANA - GPM<br>
     <strong>Coordenação:</strong> COORDENAÇÃO DE MANUTENÇÃO DE ADUTORA - CMA SUL<br>
     <strong>Cidade onde o veículo se encontra:</strong> Cabo de Santo Agostinho<br>
