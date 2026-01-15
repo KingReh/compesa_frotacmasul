@@ -64,26 +64,34 @@ export function formatDateToBrazilian(dateStr) {
 }
 
 export function htmlToPlainText(html) {
+  const NEWLINE_PLACEHOLDER = 'DYAD_NEWLINE_PLACEHOLDER';
+  const BOLD_START_PLACEHOLDER = 'DYAD_BOLD_START';
+  const BOLD_END_PLACEHOLDER = 'DYAD_BOLD_END';
+
+  // Create a temporary div to parse the HTML
   const tempDiv = document.createElement('div');
   tempDiv.innerHTML = html;
 
-  // Substitui <br> por quebras de linha
-  tempDiv.querySelectorAll('br').forEach(br => br.replaceWith('\n'));
-
-  // Substitui <strong> por texto envolto em asteriscos
+  // Replace <strong> tags with placeholders for bold
   tempDiv.querySelectorAll('strong').forEach(strong => {
-    strong.replaceWith(`*${strong.textContent}*`);
+    strong.outerHTML = `${BOLD_START_PLACEHOLDER}${strong.textContent}${BOLD_END_PLACEHOLDER}`;
   });
 
-  // Obtém o texto após as substituições
-  let plainText = tempDiv.textContent;
+  // Replace <br> tags with a unique placeholder
+  tempDiv.querySelectorAll('br').forEach(br => {
+    br.outerHTML = NEWLINE_PLACEHOLDER;
+  });
 
-  // Limpa quebras de linha extras e espaços em branco, mas preserva linhas vazias
-  return plainText
-    .split('\n')
-    .map(line => line.trim()) // Ainda remove espaços em branco no início/fim de cada linha
-    .join('\n')
-    .trim(); // Trim final para o texto completo
+  // Get the text content, which will now include our placeholders
+  let plainText = tempDiv.textContent || '';
+
+  // Replace placeholders with actual formatting
+  plainText = plainText.replace(new RegExp(BOLD_START_PLACEHOLDER, 'g'), '*');
+  plainText = plainText.replace(new RegExp(BOLD_END_PLACEHOLDER, 'g'), '*');
+  plainText = plainText.replace(new RegExp(NEWLINE_PLACEHOLDER, 'g'), '\n');
+
+  // Trim leading/trailing whitespace from the entire string
+  return plainText.trim();
 }
 
 export function getGreeting() {
