@@ -66,7 +66,20 @@ export function formatDateToBrazilian(dateStr) {
 export function htmlToPlainText(html) {
   const tempDiv = document.createElement('div');
   tempDiv.innerHTML = html;
-  return tempDiv.textContent
+
+  // Substitui <br> por quebras de linha
+  tempDiv.querySelectorAll('br').forEach(br => br.replaceWith('\n'));
+
+  // Substitui <strong> por texto envolto em asteriscos
+  tempDiv.querySelectorAll('strong').forEach(strong => {
+    strong.replaceWith(`*${strong.textContent}*`);
+  });
+
+  // Obtém o texto após as substituições
+  let plainText = tempDiv.textContent;
+
+  // Limpa quebras de linha extras e espaços em branco
+  return plainText
     .split('\n')
     .map(line => line.trim())
     .filter(line => line.length > 0)
