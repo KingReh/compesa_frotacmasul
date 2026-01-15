@@ -78,13 +78,12 @@ export function htmlToPlainText(html) {
   // Obtém o texto após as substituições
   let plainText = tempDiv.textContent;
 
-  // Limpa quebras de linha extras e espaços em branco
+  // Limpa quebras de linha extras e espaços em branco, mas preserva linhas vazias
   return plainText
     .split('\n')
-    .map(line => line.trim())
-    .filter(line => line.length > 0)
+    .map(line => line.trim()) // Ainda remove espaços em branco no início/fim de cada linha
     .join('\n')
-    .trim();
+    .trim(); // Trim final para o texto completo
 }
 
 export function getGreeting() {
