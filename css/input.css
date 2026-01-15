@@ -912,98 +912,127 @@ input:checked + .slider:before {
 /* Ajustes para telas menores que 640px */
 @media (max-width: 640px) {
   body {
-    padding: 1rem; /* Reduced body padding for smaller screens */
-    gap: 1rem; /* Reduced gap between body elements */
+    padding: 1rem;
+    /* Reduced body padding for smaller screens */
+    gap: 1rem;
+    /* Reduced gap between body elements */
   }
 
   .button-container {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    max-width: 100%; /* Ensure it doesn't overflow on small screens */
-    padding: 0.75rem;
-    gap: 0.5rem;
+    position: fixed; /* Mantém a posição fixa */
+    bottom: 1rem; /* Move para a parte inferior */
+    left: 1rem; /* Move para a esquerda */
+    top: auto; /* Remove a propriedade top */
+    right: auto; /* Remove a propriedade right */
+    flex-direction: column;
+    align-items: flex-start; /* Alinha os itens à esquerda */
+    gap: 0.75rem;
+    padding: 0;
+    background: none;
+    border: none;
+    box-shadow: none;
+    width: auto;
+    max-width: none;
+    z-index: 100;
+    /* Ensure buttons are above content */
   }
 
   .custom-btn {
     padding: 0.5rem 1rem;
-    font-size: 0.8rem; /* Slightly smaller font for buttons */
+    font-size: 0.8rem;
+    /* Slightly smaller font for buttons */
   }
 
   #mainContent {
     flex: none;
     width: 100%;
-    padding: 1rem; /* Ensure main content padding is appropriate */
+    padding: 1rem;
+    /* Ensure main content padding is appropriate */
   }
 
   /* Título principal */
+
   h1.title-main {
     font-size: 1.5rem;
-    margin-bottom: 1rem; /* Adjust margin for title */
+    margin-bottom: 1rem;
+    /* Adjust margin for title */
   }
 
   #lastUpdated {
-    margin-top: -0.5rem; /* Adjust margin for last updated text */
+    margin-top: -0.5rem;
+    /* Adjust margin for last updated text */
     margin-bottom: 1rem;
   }
 
   /* Zona de drop */
+
   #dropZone p {
     font-size: 1.25rem;
   }
 
   /* Cartões */
+
   .modern-card {
-    padding: 1rem; /* Adjust card padding */
+    padding: 1rem;
+    /* Adjust card padding */
     padding-bottom: 1.5rem;
   }
 
   .modern-card img {
-    height: 6rem; /* Slightly smaller image height */
+    height: 6rem;
+    /* Slightly smaller image height */
   }
 
   .modern-card p {
-    font-size: 0.9rem; /* Smaller general text in cards */
+    font-size: 0.9rem;
+    /* Smaller general text in cards */
   }
 
   .modern-card .text-3xl {
-    font-size: 1.25rem; /* Smaller balance text */
+    font-size: 1.25rem;
+    /* Smaller balance text */
     margin-bottom: 0.5rem;
   }
 
   /* Indicador de manutenção */
+
   .maintenance-badge {
-    font-size: 0.75rem; /* Smaller badge text */
+    font-size: 0.75rem;
+    /* Smaller badge text */
     padding: 3px 6px;
     min-width: 70px;
     height: 18px;
   }
 
   /* Modal: menor padding em telas pequenas */
+
   .modal-content {
     padding: 1rem;
-    max-width: 95%; /* Allow modals to take more width on very small screens */
+    max-width: 95%;
+    /* Allow modals to take more width on very small screens */
   }
 
   /* Ajuste para o modal de anotações de manutenção em telas pequenas */
+
   #maintenanceNotesModal .modal-content {
     flex-direction: column;
     max-width: 95%;
     padding: 1rem;
-    gap: 1rem; /* Adjust gap between form and history */
+    gap: 1rem;
+    /* Adjust gap between form and history */
   }
 
   #maintenanceNotesModal .modal-content .flex-1:last-child {
-    max-height: 30vh; /* Further reduce the height of the history section on small screens */
+    max-height: 30vh;
+    /* Further reduce the height of the history section on small screens */
     padding: 0.75rem;
   }
 
   #maintenanceNotesModal .modal-content .flex-1:last-child ul li {
     flex-direction: column;
     align-items: flex-start;
-    font-size: 0.8rem; /* Smaller font for list items */
+    font-size: 0.8rem;
+    /* Smaller font for list items */
   }
 
   #maintenanceNotesModal .modal-content .flex-1:last-child ul li .action-buttons {
@@ -1020,67 +1049,68 @@ input:checked + .slider:before {
   }
 
   /* Summary Card specific adjustments */
+
   #summaryContainer .modern-card .text-lg {
     font-size: 0.8rem;
   }
+
   #summaryContainer .modern-card .text-xl {
     font-size: 0.9rem;
   }
+
   #summaryContainer .modern-card .text-2xl {
     font-size: 1.1rem;
   }
 
   /* PWA Banner adjustments */
+
   #pwaInstallBanner {
     left: 50%;
-    transform: translateX(-50%); /* Center the banner */
-    width: calc(100% - 2rem); /* Full width minus body padding */
+    transform: translateX(-50%);
+    /* Center the banner */
+    width: calc(100% - 2rem);
+    /* Full width minus body padding */
     max-width: 95%;
-    right: auto; /* Remove right-4 */
+    right: auto;
+    /* Remove right-4 */
   }
 
   /* Footer adjustments */
+
   .manual-button-footer {
-    display: none; /* Hide manual button footer on mobile */
+    display: none;
+    /* Hide manual button footer on mobile */
   }
 
   /* Mobile-specific button styling */
-  .button-container {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0.75rem;
-    padding: 0;
-    background: none;
-    border: none;
-    box-shadow: none;
-    width: auto;
-    max-width: none;
-    z-index: 100; /* Ensure buttons are above content */
-  }
 
   .button-container .custom-btn {
-    width: 48px; /* Fixed width for circular button */
-    height: 48px; /* Fixed height for circular button */
+    width: 48px;
+    /* Fixed width for circular button */
+    height: 48px;
+    /* Fixed height for circular button */
     padding: 0;
-    border-radius: 50%; /* Make buttons circular */
+    border-radius: 50%;
+    /* Make buttons circular */
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow for visibility */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Add shadow for visibility */
   }
 
   .button-container .custom-btn .btn-text {
-    display: none; /* Hide text on mobile */
+    display: none;
+    /* Hide text on mobile */
   }
 
   .button-container .custom-btn svg {
-    margin-right: 0; /* Remove margin for centered icon */
+    margin-right: 0;
+    /* Remove margin for centered icon */
   }
 
   /* Specific adjustment for file input label to ensure it's also circular */
+
   .button-container label.custom-btn {
     width: 48px;
     height: 48px;
@@ -1088,9 +1118,16 @@ input:checked + .slider:before {
     padding: 0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
+
+  /* Botão Voltar ao Topo no canto inferior direito */
+  .scroll-to-top-btn {
+    left: auto; /* Remove a propriedade left */
+    right: 1rem; /* Move para a direita */
+  }
 }
 
 /* Ajustes para telas maiores que 640px */
+
 @media (min-width: 640px) {
   .button-container {
     flex-direction: row;
@@ -1183,8 +1220,41 @@ input:checked + .slider:before {
 }
 
 /* Ocultar o botão de voltar ao topo em telas maiores que 640px */
+
 @media (min-width: 641px) {
   .scroll-to-top-btn {
     display: none !important;
+  }
+}
+
+.hover\:bg-gray-50:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:text-gray-600:hover {
+  --tw-text-opacity: 1;
+  color: rgb(75 85 99 / var(--tw-text-opacity, 1));
+}
+
+@media (min-width: 640px) {
+  .sm\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .md\:flex-row {
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
