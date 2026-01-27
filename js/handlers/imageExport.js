@@ -25,8 +25,8 @@ async function captureCanvas() {
 
     // --- Forçar dimensões de desktop para a captura ---
     document.body.style.overflow = 'hidden'; // Evita barras de rolagem indesejadas
-    content.style.width = '1280px'; // Força a largura de desktop
-    content.style.maxWidth = '1280px'; // Garante que não seja restringido por max-width menores
+    content.style.width = '1301px'; // Força a largura de desktop
+    content.style.maxWidth = '2560px'; // Garante que não seja restringido por max-width menores
     content.style.margin = '0 auto'; // Centraliza o conteúdo
     content.style.position = 'relative'; // Reseta qualquer posicionamento mobile
     content.style.left = 'auto';
