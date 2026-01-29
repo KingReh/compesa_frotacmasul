@@ -81,6 +81,7 @@ export async function downloadImage() {
 }
 
 export async function shareImage() {
+  copyToClipboard(formatDateTime());
   try {
     const canvas = await captureCanvas();
     const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
