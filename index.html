@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +10,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-  
+
   <!-- Supabase CDN para carregamento global -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.43.4/dist/umd/supabase.min.js"></script>
 
@@ -23,11 +24,13 @@
 
   <link rel="stylesheet" href="/css/styles.css">
 </head>
+
 <body class="bg-[#204499] flex flex-col items-center min-h-screen p-8 gap-6">
   <!-- Botões -->
   <div class="button-container flex flex-row flex-wrap gap-3 justify-center items-center w-full max-w-7xl">
     <label for="fileInput" class="custom-btn" aria-label="Enviar arquivo HTML ou XLS com dados dos veículos">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
         <polyline points="17 8 12 3 7 8"></polyline>
         <line x1="12" y1="3" x2="12" y2="15"></line>
@@ -36,7 +39,8 @@
       <input type="file" id="fileInput" accept=".xls,.html" style="display: none;">
     </label>
     <button id="downloadBtn" class="custom-btn" aria-label="Baixar extrato como imagem">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
         <polyline points="7 10 12 15 17 10"></polyline>
         <line x1="12" y1="15" x2="12" y2="3"></line>
@@ -44,7 +48,8 @@
       <span class="btn-text">Baixar Extrato</span>
     </button>
     <button id="shareBtn" class="custom-btn" aria-label="Compartilhar extrato como imagem">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
         <circle cx="18" cy="5" r="3"></circle>
         <circle cx="6" cy="12" r="3"></circle>
         <circle cx="18" cy="19" r="3"></circle>
@@ -54,13 +59,17 @@
       <span class="btn-text">Compartilhar</span>
     </button>
     <button id="maintenanceBtn" class="custom-btn" aria-label="Gerenciar manutenção dos veículos">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path
+          d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z">
+        </path>
       </svg>
       <span class="btn-text">Manutenção</span>
     </button>
     <button id="miscBtn" class="custom-btn" aria-label="Gerenciar materiais diversos">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
         <path d="M22 6v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z"></path>
         <path d="M10 12l4-4"></path>
         <path d="M10 12h4v4"></path>
@@ -68,13 +77,15 @@
       <span class="btn-text">Materiais</span>
     </button>
     <button id="requestMaintenanceBtn" class="custom-btn" aria-label="Solicitação de manutenção">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
         <path d="M4 4v16h16V4H4zm4 2h8v2H8V6zm0 4h8v2H8v-2zm0 4h4v2H8v-2z"></path>
       </svg>
       <span class="btn-text">Solicitar Manutenção</span>
     </button>
     <button id="maintenanceNotesBtn" class="custom-btn" aria-label="Gerenciar anotações de manutenção">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
         <path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path>
         <polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon>
       </svg>
@@ -85,12 +96,16 @@
   <!-- Contêiner flex para conteúdo principal -->
   <div class="flex flex-row gap-6 w-full max-w-5xl">
     <!-- Conteúdo capturável -->
-    <div id="mainContent" class="w-full bg-gray-50 rounded-2xl p-10 shadow-md relative" aria-label="Arraste e solte um arquivo HTML ou XLS aqui para carregar os dados dos veículos">
-      <div id="dropZone" class="hidden absolute inset-0 bg-gray-200 bg-opacity-50 flex items-center justify-center rounded-2xl">
+    <div id="mainContent" class="w-full bg-gray-50 rounded-2xl p-10 shadow-md relative"
+      aria-label="Arraste e solte um arquivo HTML ou XLS aqui para carregar os dados dos veículos">
+      <div id="dropZone"
+        class="hidden absolute inset-0 bg-gray-200 bg-opacity-50 flex items-center justify-center rounded-2xl">
         <p class="text-2xl font-semibold text-gray-800" aria-live="polite">Solte aqui</p>
       </div>
-      <img src="/img/diversos_img/logo_compesa.png" alt="Logo Compesa" class="logo-compesa mx-auto mb-6 max-w-xs w-full">
-      <h1 class="title-main text-4xl font-semibold text-gray-800 text-center mb-20">Saldo dos Veículos CPR e CMA SUL</h1>
+      <img src="/img/diversos_img/logo_compesa.png" alt="Logo Compesa"
+        class="logo-compesa mx-auto mb-6 max-w-xs w-full">
+      <h1 class="title-main text-4xl font-semibold text-gray-800 text-center mb-20">Saldo dos Veículos CMA e CPR SUL
+      </h1>
       <p id="lastUpdated" class="text-center text-gray-500 text-sm -mt-16 mb-16"></p>
       <div id="content" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
       <div id="summaryContainer" class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6"></div>
@@ -119,7 +134,8 @@
   </div>
 
   <!-- Modal de Solicitação de Manutenção -->
-  <div id="requestMaintenanceModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+  <div id="requestMaintenanceModal"
+    class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
     <div class="modal-content w-full max-w-2xl">
       <h2 class="text-xl font-semibold text-gray-700 mb-4">Solicitação de Manutenção</h2>
       <form id="requestMaintenanceForm" class="space-y-4">
@@ -164,7 +180,8 @@
           </div>
         </div>
         <div>
-          <label for="unitAddress" class="block text-sm font-medium text-gray-700">Endereço da Unidade Responsável</label>
+          <label for="unitAddress" class="block text-sm font-medium text-gray-700">Endereço da Unidade
+            Responsável</label>
           <input type="text" id="unitAddress" readonly>
         </div>
         <div>
@@ -192,7 +209,8 @@
   </div>
 
   <!-- Modal de Anotações de Manutenção -->
-  <div id="maintenanceNotesModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+  <div id="maintenanceNotesModal"
+    class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
     <div class="modal-content w-full max-w-4xl flex flex-col md:flex-row gap-6">
       <!-- Formulário à esquerda -->
       <div class="flex-1">
@@ -211,11 +229,13 @@
             </select>
           </div>
           <div>
-            <label for="maintenanceNoteEntryDate" class="block text-sm font-medium text-gray-700">Data de Entrada na Oficina</label>
+            <label for="maintenanceNoteEntryDate" class="block text-sm font-medium text-gray-700">Data de Entrada na
+              Oficina</label>
             <input type="date" id="maintenanceNoteEntryDate">
           </div>
           <div>
-            <label for="maintenanceNoteDaysAbsent" class="block text-sm font-medium text-gray-700">Tempo Ausente (dias)</label>
+            <label for="maintenanceNoteDaysAbsent" class="block text-sm font-medium text-gray-700">Tempo Ausente
+              (dias)</label>
             <input type="number" id="maintenanceNoteDaysAbsent" readonly>
           </div>
           <div>
@@ -238,10 +258,24 @@
           <h3 class="text-lg font-semibold text-gray-700">Histórico</h3>
           <div class="flex gap-2">
             <button type="button" id="exportTxtBtn" class="custom-btn p-2" aria-label="Exportar para TXT">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
             </button>
             <button type="button" id="exportExcelBtn" class="custom-btn p-2" aria-label="Exportar para XLSX">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="17" x2="10" y2="13"></line></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <line x1="10" y1="17" x2="10" y2="13"></line>
+              </svg>
             </button>
           </div>
         </div>
@@ -251,7 +285,8 @@
   </div>
 
   <!-- Modal de Edição de Anotações -->
-  <div id="editMaintenanceNoteModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+  <div id="editMaintenanceNoteModal"
+    class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
     <div class="modal-content w-full max-w-md">
       <h2 class="text-xl font-semibold text-gray-700 mb-4">Editar Anotação</h2>
       <form id="editMaintenanceNoteForm" class="space-y-4">
@@ -263,26 +298,31 @@
           </select>
         </div>
         <div>
-          <label for="editMaintenanceNoteCoordination" class="block text-sm font-medium text-gray-700">Coordenação</label>
+          <label for="editMaintenanceNoteCoordination"
+            class="block text-sm font-medium text-gray-700">Coordenação</label>
           <select id="editMaintenanceNoteCoordination">
             <option value="">Selecione uma coordenação</option>
           </select>
         </div>
         <div>
-          <label for="editMaintenanceNoteEntryDate" class="block text-sm font-medium text-gray-700">Data de Entrada na Oficina</label>
+          <label for="editMaintenanceNoteEntryDate" class="block text-sm font-medium text-gray-700">Data de Entrada na
+            Oficina</label>
           <input type="date" id="editMaintenanceNoteEntryDate">
         </div>
         <div>
-          <label for="editMaintenanceNoteDaysAbsent" class="block text-sm font-medium text-gray-700">Tempo Ausente (dias)</label>
+          <label for="editMaintenanceNoteDaysAbsent" class="block text-sm font-medium text-gray-700">Tempo Ausente
+            (dias)</label>
           <input type="number" id="editMaintenanceNoteDaysAbsent" readonly>
         </div>
         <div>
-          <label for="editMaintenanceNoteTicketNumber" class="block text-sm font-medium text-gray-700">Nº Chamado</label>
+          <label for="editMaintenanceNoteTicketNumber" class="block text-sm font-medium text-gray-700">Nº
+            Chamado</label>
           <input type="text" id="editMaintenanceNoteTicketNumber" placeholder="Ex: 2024001122">
         </div>
         <div>
           <label for="editMaintenanceNoteService" class="block text-sm font-medium text-gray-700">Serviço</label>
-          <textarea id="editMaintenanceNoteService" placeholder="Descreva o serviço a ser realizado" rows="4"></textarea>
+          <textarea id="editMaintenanceNoteService" placeholder="Descreva o serviço a ser realizado"
+            rows="4"></textarea>
         </div>
         <div class="flex justify-end gap-2">
           <button type="button" id="saveEditNoteBtn" class="custom-btn btn-primary">Salvar</button>
@@ -293,43 +333,39 @@
   </div>
 
   <!-- PWA Install Banner -->
-  <div id="pwaInstallBanner" class="fixed bottom-4 left-4 w-11/12 max-w-md bg-white rounded-lg shadow-lg p-4 items-center gap-4 z-50 hidden">
+  <div id="pwaInstallBanner"
+    class="fixed bottom-4 left-4 w-11/12 max-w-md bg-white rounded-lg shadow-lg p-4 items-center gap-4 z-50 hidden">
     <img src="/img/icons/192x192.png" alt="App Icon" class="w-12 h-12">
     <div class="flex-grow">
       <p class="font-semibold text-gray-800">Instale o App Frota SUL</p>
       <p class="text-sm text-gray-600">Acesso rápido e offline da tela de início.</p>
-      <p id="iosInstallInstructions" class="text-xs text-blue-600 mt-1 hidden">Toque em <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8'%3E%3C/path%3E%3Cpolyline points='16 6 12 2 8 6'%3E%3C/polyline%3E%3Cline x1='12' y1='2' x2='12' y2='15'%3E%3C/line%3E%3C/svg%3E' e depois em "Adicionar à Tela de Início".</p>
+      <p id="iosInstallInstructions" class="text-xs text-blue-600 mt-1 hidden">Toque em <img
+          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8'%3E%3C/path%3E%3Cpolyline points='16 6 12 2 8 6'%3E%3C/polyline%3E%3Cline x1='12' y1='2' x2='12' y2='15'%3E%3C/line%3E%3C/svg%3E' e depois em "
+          Adicionar à Tela de Início".</p>
     </div>
     <button id="installPwaBtn" class="custom-btn btn-primary flex-shrink-0">Instalar</button>
     <button id="closePwaBannerBtn" class="absolute top-2 right-2 text-gray-400 hover:text-gray-600">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
     </button>
   </div>
 
   <!-- Botão Voltar ao Topo (apenas mobile) -->
   <button id="scrollToTopBtn" class="scroll-to-top-btn" aria-label="Voltar ao topo da página">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 11 12 6 7 11"></polyline><polyline points="17 18 12 13 7 18"></polyline></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="17 11 12 6 7 11"></polyline>
+      <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
   </button>
 
-  <!-- Footer with Manual Icon and Text -->
-  <footer class="fixed bottom-4 right-4 manual-button-footer">
-    <button id="manualBtn" class="custom-btn" aria-label="Abrir manual do usuário em PDF">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4 4h16v16H4z"></path>
-        <path d="M8 4v16"></path>
-        <path d="M12 10h4"></path>
-        <path d="M12 14h4"></path>
-        <path d="M12 18h4"></path>
-      </svg>
-      <span class="btn-text">Manual</span>
-    </button>
-  </footer>
+
 
   <script type="module" src="/js/main.js"></script>
-  <script>
-    document.getElementById('manualBtn').addEventListener('click', () => {
-      window.open('/guias/manual_usuário.pdf', '_blank');
-    });
-  </script>
+
 </body>
+
 </html>
