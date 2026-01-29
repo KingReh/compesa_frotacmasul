@@ -70,13 +70,18 @@ export async function downloadImage() {
 }
 
 export async function shareImage() {
-  copyToClipboard(formatDateTime());
   try {
     const canvas = await captureCanvas();
     const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
     const file = new File([blob], 'Saldo dos Veiculos.png', { type: 'image/png' });
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      await navigator.share({ files: [file], title: 'Extrato de Veículos', text: 'Confira o saldo atualizado.' });
+    const shareData = {
+      files: [file],
+      title: 'Extrato de Veículos',
+      text: formatDateTime()
+    };
+
+    if (navigator.canShare && navigator.canShare(shareData)) {
+      await navigator.share(shareData);
     } else {
       alert('Seu navegador não suporta compartilhamento de imagem.');
     }
