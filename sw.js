@@ -1,4 +1,4 @@
-const CACHE_NAME = 'frota-sul-cache-v1';
+const CACHE_NAME = 'frota-sul-cache-v2';
 const URLS_TO_CACHE = [
   '/',
   '/index.html',
@@ -54,4 +54,11 @@ self.addEventListener('activate', event => {
       );
     })
   );
+});
+
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    console.log('SW: Skipping waiting...');
+    self.skipWaiting();
+  }
 });
