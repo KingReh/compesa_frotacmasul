@@ -137,11 +137,11 @@
   </div>
 
 <!-- Contêiner flex para conteúdo principal -->
-<div class="flex flex-row gap-24 w-full max-w-5xl">
+<div class="flex flex-row gap-6 w-full max-w-5xl">
   
   <!-- Conteúdo capturável -->
   <div id="mainContent"
-       class="w-full bg-gray-50 rounded-2xl p-40 shadow-md relative"
+       class="w-full bg-gray-50 rounded-2xl p-10 shadow-md relative"
        aria-label="Arraste e solte um arquivo HTML ou XLS aqui para carregar os dados dos veículos">
 
     <!-- Área de Drop -->
@@ -152,40 +152,36 @@
       </p>
     </div>
 
+    <!-- Logo -->
+    <img src="/img/diversos_img/logo_compesa.png"
+         alt="Logo Compesa"
+         class="logo-compesa mx-auto mb-8 max-w-xs w-full">
+
     <!-- Cabeçalho -->
-    <header class="text-center">
-
-      <!-- Logo -->
-      <img src="/img/diversos_img/logo_compesa.png"
-           alt="Logo Compesa"
-           class="mx-auto mb-32 max-w-xs w-full">
-
-      <!-- CNPJ -->
-      <h1 class="text-4xl font-semibold text-gray-800 mb-16">
+    <header class="text-center mb-16">
+      
+      <h1 class="title-main text-4xl font-semibold text-gray-800 mb-6">
         CNPJ: 09.769.035/0001-64
       </h1>
 
-      <!-- Descritivo -->
-      <div class="text-4xl font-semibold text-gray-800 mb-24">
+      <div class="text-4xl font-semibold text-gray-800">
         Saldo dos Veículos CPR e CMA SUL
       </div>
 
-      <!-- Data atualização -->
       <p id="lastUpdated"
-         class="text-sm text-gray-500">
-        Dados atualizados em: dd/mm/aaaa às hh:mm
+         class="text-gray-500 text-sm mt-8">
       </p>
 
     </header>
 
-    <!-- Cards -->
+    <!-- Cards de veículos -->
     <div id="content"
-         class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-24 mt-40">
+         class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
     </div>
 
     <!-- Resumo -->
     <div id="summaryContainer"
-         class="grid grid-cols-1 lg:grid-cols-3 gap-24 mt-40">
+         class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
     </div>
 
   </div>
