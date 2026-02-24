@@ -35,6 +35,7 @@ export const drivers = [
   { name: 'Flávio Rosendo', contact: '(81) 99707-2067' },
   { name: 'Flávio Simões', contact: '(81) 98820-2260' },
   { name: 'João Alves', contact: '(81) 98870-1779' },
+  { name: 'Severino João', contact: '(81) 98625-6529' },
   { name: 'Swami', contact: '(81) 99488-5344' },
   { name: 'Jonas', contact: '(81) 98365-0294' },
   { name: 'Abraão', contact: '(81) 98336-1267' },
