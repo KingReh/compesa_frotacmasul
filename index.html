@@ -27,29 +27,46 @@
 
 <body class="bg-[#204499] flex flex-col items-center min-h-screen p-8 gap-6">
   <!-- Botões Fixos Topo Direito -->
-  <div class="fixed top-4 right-4 flex-col gap-3 z-50 hidden sm:flex">
-    <a href="https://sso.sa.edenred.io/web/session/step/password?returnUrl=%2Fconnect%2Fauthorize%2Fcallback%3Fresponse_type%3Dcode%26client_id%3Dfcfc49a2ff3b45ef9c5f245b37b4d567%26state%3DUkh6TVBSZUNla3BFbHRQNU5OYkguRW1YTTYtcjBnZk1XRmt0cWx2b2VtZ2Mz%26redirect_uri%3Dhttps%253A%252F%252Fplataforma.ticketlog.com.br%252Flogin-callback%26scope%3Dopenid%2520profile%2520email%2520portal-fleet-and-mobility-ms_application%2520offline_access%26code_challenge%3DJxObrukQtp6M5FES_lKYthBtB4BAMIH_RaQTaAVAlRA%26code_challenge_method%3DS256%26nonce%3DUkh6TVBSZUNla3BFbHRQNU5OYkguRW1YTTYtcjBnZk1XRmt0cWx2b2VtZ2Mz%26acr_values%3Dtenant%253Abr-fleet-mobility"
-      target="_blank" rel="noopener noreferrer"
-      class="custom-btn w-16 h-16 rounded-full flex items-center justify-center bg-white shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105"
-      title="Acessar TicketLog" aria-label="Acessar TicketLog">
-      <img src="img/diversos_img/ticketlog.png" alt="Logo TicketLog" class="w-10 h-10 object-contain">
-    </a>
+<div class="fixed top-4 right-4 flex flex-col gap-3 z-50 hidden sm:flex">
 
-  <div class="fixed top-4 right-4 flex-col gap-3 z-50 hidden sm:flex">
-    <a href="https://bi-frota.lovable.app/regularizacao-documentos"
-      target="_blank" rel="noopener noreferrer"
-      class="custom-btn w-16 h-16 rounded-full flex items-center justify-center bg-white shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105"
-      title="Acessar CRLV's veículos" aria-label="Acessar CRLV's veículos">
-      <img src="img/diversos_img/CRLV.png" alt="Logo CRLV" class="w-10 h-10 object-contain">
-    </a>
+  <!-- TicketLog -->
+  <a href="https://sso.sa.edenred.io/web/session/step/password?returnUrl=%2Fconnect%2Fauthorize%2Fcallback%3Fresponse_type%3Dcode%26client_id%3Dfcfc49a2ff3b45ef9c5f245b37b4d567%26state%3DUkh6TVBSZUNla3BFbHRQNU5OYkguRW1YTTYtcjBnZk1XRmt0cWx2b2VtZ2Mz%26redirect_uri%3Dhttps%253A%252F%252Fplataforma.ticketlog.com.br%252Flogin-callback%26scope%3Dopenid%2520profile%2520email%2520portal-fleet-and-mobility-ms_application%2520offline_access%26code_challenge%3DJxObrukQtp6M5FES_lKYthBtB4BAMIH_RaQTaAVAlRA%26code_challenge_method%3DS256%26nonce%3DUkh6TVBSZUNla3BFbHRQNU5OYkguRW1YTTYtcjBnZk1XRmt0cWx2b2VtZ2Mz%26acr_values%3Dtenant%253Abr-fleet-mobility"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="custom-btn w-16 h-16 rounded-full flex items-center justify-center bg-white shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105"
+    title="Acessar TicketLog"
+    aria-label="Acessar TicketLog">
+    <img src="img/diversos_img/ticketlog.png"
+         alt="Logo TicketLog"
+         class="w-10 h-10 object-contain">
+  </a>
 
-    <a href="https://app.powerbi.com/view?r=eyJrIjoiNDlmYTYzYTEtOGM3Mi00M2VjLWFkZTgtZWViM2I3NzBkZDhhIiwidCI6IjU3YTY2OThkLTA5M2QtNDIxOC05OTA0LWVkMDRmOWNiNDI1MiJ9"
-      target="_blank" rel="noopener noreferrer"
-      class="custom-btn w-16 h-16 rounded-full flex items-center justify-center bg-white shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105"
-      title="Acessar Power BI" aria-label="Acessar Power BI">
-      <img src="img/diversos_img/power-bi-icon.png" alt="Logo Power BI" class="w-10 h-10 object-contain">
-    </a>
-  </div>
+  <!-- CRLV -->
+  <a href="https://bi-frota.lovable.app/regularizacao-documentos"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="custom-btn w-16 h-16 rounded-full flex items-center justify-center bg-white shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105"
+    title="Acessar CRLV's veículos"
+    aria-label="Acessar CRLV's veículos">
+    <img src="img/diversos_img/CRLV.png"
+         alt="Logo CRLV"
+         class="w-10 h-10 object-contain">
+  </a>
+
+  <!-- Power BI -->
+  <a href="https://app.powerbi.com/view?r=eyJrIjoiNDlmYTYzYTEtOGM3Mi00M2VjLWFkZTgtZWViM2I3NzBkZDhhIiwidCI6IjU3YTY2OThkLTA5M2QtNDIxOC05OTA0LWVkMDRmOWNiNDI1MiJ9"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="custom-btn w-16 h-16 rounded-full flex items-center justify-center bg-white shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105"
+    title="Acessar Power BI"
+    aria-label="Acessar Power BI">
+    <img src="img/diversos_img/power-bi-icon.png"
+         alt="Logo Power BI"
+         class="w-10 h-10 object-contain">
+  </a>
+
+</div>
+  
   <!-- Botões -->
   <div class="button-container flex flex-row flex-wrap gap-3 justify-center items-center w-full max-w-7xl">
     <button id="fabToggleBtn" class="custom-btn fab-toggle sm:hidden" aria-label="Menu de Ações">
