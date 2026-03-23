@@ -61,9 +61,9 @@ export const units = [
 ];
 
 export const fuelPrices = {
-  gasolina: 6.25,
-  diesel: 6.20,
-  gnv: 4.77,
-  etanol: 4.27,
-  arla32: 4.00
+  gasolina: 7.25,
+  diesel: 7.09,
+  gnv: 4.19,
+  etanol: 5.7,
+  arla32: 3.99
 };
