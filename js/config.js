@@ -1,5 +1,3 @@
-import { getFuelPrices, defaultFuelPrices } from './fuelPricesManager.js';
-
 // Configuração do Supabase
 // Importação removida, Supabase é carregado globalmente via CDN no index.html
 const { createClient } = window.supabase;
@@ -62,9 +60,10 @@ export const units = [
   }
 ];
 
-// Preços de combustível — lidos do localStorage (com fallback para os defaults).
-// Para editar os preços em runtime, instancie FuelPricesManager no componente adequado.
-// Para reagir a atualizações em outros módulos, escute o evento:
-//   window.addEventListener('fuelPricesUpdated', ({ detail }) => { ... });
-export { defaultFuelPrices };
-export const fuelPrices = getFuelPrices();
+export const fuelPrices = {
+  gasolina: 7.25,
+  diesel: 7.09,
+  gnv: 4.19,
+  etanol: 5.7,
+  arla32: 3.99
+};
