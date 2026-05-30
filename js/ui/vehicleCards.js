@@ -10,14 +10,53 @@ function getBadgeText(baseText, plate, maintenanceState) {
   if (isNaN(startDate.getTime())) return baseText;
 
   const currentDate = new Date();
-  const diffTime = currentDate - startDate;
-  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
-  if (diffDays >= 1) {
-    const label = diffDays === 1 ? 'dia' : 'dias';
-    return `${baseText} há ${diffDays} ${label}`;
+  // Reset time components to compare calendar days only
+  const startYear = startDate.getFullYear();
+  const startMonth = startDate.getMonth();
+  const startDateVal = startDate.getDate();
+
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth();
+  const currentDateVal = currentDate.getDate();
+
+  const dStart = new Date(startYear, startMonth, startDateVal);
+  const dCurrent = new Date(currentYear, currentMonth, currentDateVal);
+
+  const diffTime = dCurrent - dStart;
+  const totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+  if (totalDays < 1) {
+    return baseText;
   }
-  return baseText;
+
+  let years = currentYear - startYear;
+  const anniversary = new Date(startDate);
+  anniversary.setFullYear(currentYear);
+  const dAnniversary = new Date(anniversary.getFullYear(), anniversary.getMonth(), anniversary.getDate());
+
+  if (dCurrent < dAnniversary) {
+    years--;
+  }
+
+  const lastAnniversary = new Date(startDate);
+  lastAnniversary.setFullYear(startYear + years);
+  const dLastAnniversary = new Date(lastAnniversary.getFullYear(), lastAnniversary.getMonth(), lastAnniversary.getDate());
+
+  const remainingTime = dCurrent - dLastAnniversary;
+  const remainingDays = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+
+  if (years > 0 && remainingDays > 0) {
+    const yearsText = years === 1 ? '1 ano' : `${years} anos`;
+    const daysText = remainingDays === 1 ? '1 dia' : `${remainingDays} dias`;
+    return `${baseText} há ${yearsText} e ${daysText}`;
+  } else if (years > 0) {
+    const yearsText = years === 1 ? '1 ano' : `${years} anos`;
+    return `${baseText} há ${yearsText}`;
+  } else {
+    const daysText = remainingDays === 1 ? '1 dia' : `${remainingDays} dias`;
+    return `${baseText} há ${daysText}`;
+  }
 }
 
 export function renderVehicleCards(table, maintenanceState) {
