@@ -15,11 +15,13 @@ export async function loadStateFromSupabase() {
   try {
     const { data: maintenanceData, error: maintenanceError } = await supabase
       .from('maintenance_state')
-      .select('plate, is_in_maintenance');
+      .select('plate, is_in_maintenance, maintenance_start_date');
     if (maintenanceError) throw maintenanceError;
     if (maintenanceData) {
+      state.maintenanceState._dates = {};
       maintenanceData.forEach(row => {
         state.maintenanceState[row.plate] = row.is_in_maintenance;
+        state.maintenanceState._dates[row.plate] = row.maintenance_start_date;
       });
     }
 

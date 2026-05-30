@@ -1,6 +1,25 @@
 import { desiredPlates, generators } from '../config.js';
 import { parseSaldo, formatCurrency, copyToClipboard, showNotification, getConsolidatedPlateBalances } from '../utils.js';
 
+function getBadgeText(baseText, plate, maintenanceState) {
+  const dates = maintenanceState && maintenanceState._dates ? maintenanceState._dates : {};
+  const startDateStr = dates[plate];
+  if (!startDateStr) return baseText;
+
+  const startDate = new Date(startDateStr);
+  if (isNaN(startDate.getTime())) return baseText;
+
+  const currentDate = new Date();
+  const diffTime = currentDate - startDate;
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+  if (diffDays >= 1) {
+    const label = diffDays === 1 ? 'dia' : 'dias';
+    return `${baseText} há ${diffDays} ${label}`;
+  }
+  return baseText;
+}
+
 export function renderVehicleCards(table, maintenanceState) {
   const contentDiv = document.getElementById('content');
   contentDiv.innerHTML = '';
@@ -23,7 +42,7 @@ export function renderVehicleCards(table, maintenanceState) {
       </div>
       <p class="text-xl font-semibold text-gray-800 !mb-3">${plate}</p>
       <p class="text-3xl font-bold ${balanceValue === 0 ? 'zero-balance' : 'text-green-600'} loaded">R$ ${balanceFormatted}</p>
-      ${isInMaintenance ? '<div class="maintenance-badge loaded">Em Manutenção</div>' : ''}
+      ${isInMaintenance ? `<div class="maintenance-badge loaded">${getBadgeText('Em Manutenção', plate, maintenanceState)}</div>` : ''}
     `;
     card.addEventListener('click', async () => {
       if (await copyToClipboard(plate)) showNotification(`Placa ${plate} copiada!`);
@@ -49,7 +68,8 @@ export function updateVehicleCard(plate, maintenanceState) {
       const newBadge = document.createElement('div');
       const isGenerator = plate.startsWith('GER');
       newBadge.className = isGenerator ? 'maintenance-badge loaded text-[9px] px-1 py-0.5 mt-0 shrink-0' : 'maintenance-badge loaded';
-      newBadge.textContent = 'Quebrado';
+      const baseText = isGenerator ? 'Quebrado' : 'Em Manutenção';
+      newBadge.textContent = getBadgeText(baseText, plate, maintenanceState);
       const targetContainer = isGenerator ? card.querySelector('.flex-col.items-end') : card;
       if (targetContainer) targetContainer.appendChild(newBadge);
     } else if (!isInMaintenance && badge) {
@@ -102,7 +122,7 @@ export function renderGeneratorsCard(table, maintenanceState) {
       </div>
       <div class="flex flex-col items-end justify-center gap-1 shrink-0">
         <span class="text-xs font-bold ${balanceValue === 0 ? 'zero-balance' : 'text-green-600'} loaded">R$ ${balanceFormatted}</span>
-        ${isInMaintenance ? '<div class="maintenance-badge loaded text-[9px] px-1 py-0.5 mt-0 shrink-0">Em Manutenção</div>' : ''}
+        ${isInMaintenance ? `<div class="maintenance-badge loaded text-[9px] px-1 py-0.5 mt-0 shrink-0">${getBadgeText('Quebrado', plate, maintenanceState)}</div>` : ''}
       </div>
     `;
 

@@ -2,64 +2,8 @@ import { desiredPlates, placasCPRSUL, fuelPrices } from '../config.js';
 import { parseSaldo, formatCurrency, getConsolidatedPlateBalances } from '../utils.js';
 import { renderMaterialsCard, updateMaterialsCard } from './vehicleCards.js';
 
-function calculateOperationData(maintenanceState) {
-  const cmaSulCount = desiredPlates.length - placasCPRSUL.length;
-  const cprSulCount = placasCPRSUL.length;
-  const maintenanceCount = desiredPlates.filter(plate => maintenanceState[plate]).length;
-  return { cmaSulCount, cprSulCount, maintenanceCount };
-}
-
-function updateOperationChart(maintenanceState) {
-  const operationCtx = document.getElementById('operationPieChart')?.getContext('2d');
-  if (operationCtx) {
-    const operationData = calculateOperationData(maintenanceState);
-    if (Chart.getChart(operationCtx)) {
-      Chart.getChart(operationCtx).destroy();
-    }
-    new Chart(operationCtx, {
-      type: 'pie',
-      data: {
-        labels: ['CMA SUL', 'CPR SUL', 'Manutenção'],
-        datasets: [{
-          data: [operationData.cmaSulCount, operationData.cprSulCount, operationData.maintenanceCount],
-          backgroundColor: ['#10B981', '#34D399', '#F59E0B']
-        }]
-      },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        plugins: {
-          legend: { position: 'bottom' },
-          tooltip: { callbacks: { label: (item) => `${item.label}: ${item.raw} veículos` } }
-        }
-      }
-    });
-  }
-}
-
 export function updateQuantityCard(maintenanceState) {
-  const { cmaSulCount, cprSulCount, maintenanceCount } = calculateOperationData(maintenanceState);
-  const quantityCard = document.querySelector('#summaryContainer .modern-card:nth-child(2)');
-  if (quantityCard) {
-    quantityCard.innerHTML = `
-      <h2 class="text-center text-xl font-semibold text-gray-700 mb-6">Veículos em Operação</h2>
-      <div id="operationPieChartContainer" class="mb-6 flex justify-center">
-        <canvas id="operationPieChart" class="loaded"></canvas>
-      </div>
-      <div class="flex justify-between text-lg">
-        <span class="font-medium">CMA SUL</span>
-        <span class="font-bold text-gray-700">${cmaSulCount} veículos</span>
-      </div>
-      <div class="flex justify-between text-lg mt-2">
-        <span class="font-medium">CPR SUL</span>
-        <span class="font-bold text-gray-700">${cprSulCount} veículos</span>
-      </div>
-      <div class="flex justify-between border-t pt-2 mt-6 text-lg font-semibold">
-        <span>Manutenção</span>
-        <span class="font-bold text-gray-800">${maintenanceCount} veículos</span>
-      </div>
-    `;
-    updateOperationChart(maintenanceState);
-  }
+  // No-op: O card "Veículos em Operação" foi completamente substituído por "Resumo de Saldo"
 }
 
 async function renderFuelPricesCard() {
@@ -95,18 +39,60 @@ async function renderFuelPricesCard() {
 }
 
 export async function renderSummary(table, maintenanceState, materialsState) {
+  const consolidatedData = getConsolidatedPlateBalances(table);
+  
+  let totalGeral = 0;
+  let totalCPRSUL = 0;
+  
+  Object.entries(consolidatedData).forEach(([plate, saldo]) => {
+    totalGeral += saldo;
+    if (placasCPRSUL.includes(plate)) {
+      totalCPRSUL += saldo;
+    }
+  });
+
+  const totalCMASUL = totalGeral - totalCPRSUL;
+
   const summaryContainer = document.getElementById('summaryContainer');
   summaryContainer.innerHTML = '';
 
   // 1. Render and update the Materials Card in summaryContainer
   renderMaterialsCard(summaryContainer);
   updateMaterialsCard(materialsState);
-  
-  // 2. Render quantity card (Veículos em Operação)
-  const quantityCard = document.createElement('div');
-  quantityCard.className = 'modern-card p-6 bg-white loaded';
-  summaryContainer.appendChild(quantityCard);
-  updateQuantityCard(maintenanceState);
+
+  // 2. Render "Resumo de Saldo" card in the 2nd position (where "Veículos em Operação" used to be)
+  const resumo = document.createElement('div');
+  resumo.className = 'modern-card p-6 text-base text-gray-800 bg-white loaded';
+  resumo.innerHTML = `
+    <h2 class="text-center text-xl font-semibold text-gray-700 mb-6">Resumo de Saldo</h2>
+    <div id="pieChartContainer" class="mb-6 flex justify-center"><canvas id="balancePieChart" class="loaded"></canvas></div>
+    <div class="flex justify-between text-lg"><span class="font-medium">CMA SUL</span><span class="font-bold text-green-700 text-xl">R$ ${formatCurrency(totalCMASUL)}</span></div>
+    <div class="flex justify-between text-lg mt-2"><span class="font-medium">CPR SUL</span><span class="font-bold text-green-700 text-xl">R$ ${formatCurrency(totalCPRSUL)}</span></div>
+    <div class="flex justify-between border-t pt-2 mt-6 text-xl font-semibold"><span>Total</span><span class="text-green-800 font-bold text-2xl">R$ ${formatCurrency(totalGeral)}</span></div>
+  `;
+  summaryContainer.appendChild(resumo);
+
+  const balanceCtx = document.getElementById('balancePieChart')?.getContext('2d');
+  if (balanceCtx) {
+    new Chart(balanceCtx, {
+      type: 'pie',
+      data: {
+        labels: ['CMA SUL', 'CPR SUL'],
+        datasets: [{
+          data: [totalCMASUL, totalCPRSUL],
+          backgroundColor: ['#10B981', '#34D399']
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'bottom' },
+          tooltip: { callbacks: { label: (item) => `${item.label}: R$ ${formatCurrency(item.raw)}` } }
+        }
+      }
+    });
+  }
 
   // 3. Render fuel prices card
   await renderFuelPricesCard();

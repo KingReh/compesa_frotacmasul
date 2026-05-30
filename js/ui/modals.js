@@ -21,6 +21,14 @@ export function renderMaintenanceModal(maintenanceState) {
     input.addEventListener('change', async (e) => {
       const plate = e.target.dataset.plate;
       maintenanceState[plate] = e.target.checked;
+      
+      if (!maintenanceState._dates) maintenanceState._dates = {};
+      if (e.target.checked) {
+        maintenanceState._dates[plate] = new Date().toISOString();
+      } else {
+        delete maintenanceState._dates[plate];
+      }
+
       await saveMaintenanceToSupabase(plate, maintenanceState[plate]);
       updateVehicleCard(plate, maintenanceState);
       updateQuantityCard(maintenanceState);
